@@ -25,6 +25,13 @@ NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID=<your notebook id>
 
 `.env` is local-only and must not be committed.
 
+Session data is stored outside the repository by default:
+
+* Windows: `%LOCALAPPDATA%\ask-notebooklm\storage_state.json`
+* Other platforms: `~/.ask-notebooklm/storage_state.json`
+
+Tests and advanced local setups can pass an explicit session storage path.
+
 ## MCP tools
 
 The planned stdio MCP server exposes only:
