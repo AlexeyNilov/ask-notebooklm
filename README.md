@@ -25,6 +25,15 @@ NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID=<your notebook id>
 
 `.env` is local-only and must not be committed.
 
+## MCP tools
+
+The planned stdio MCP server exposes only:
+
+* `login`: capture or refresh the local NotebookLM browser session
+* `ask`: ask a question against `NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID`
+
+No write-oriented NotebookLM tools are exposed.
+
 ## Development
 
 Create a virtual environment with Python 3.10 or newer, then install the package
