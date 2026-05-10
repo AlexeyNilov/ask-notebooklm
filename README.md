@@ -45,6 +45,15 @@ The planned stdio MCP server exposes only:
 
 No write-oriented NotebookLM tools are exposed.
 
+## NotebookLM API boundary
+
+The ask client uses NotebookLM's internal streaming question endpoint directly.
+It reads cookies from the captured browser session, fetches NotebookLM page
+tokens, sends a question to the configured notebook, and parses the streamed
+answer response.
+
+This endpoint is undocumented and may change without notice.
+
 ## Development
 
 Create a virtual environment with Python 3.10 or newer, then install the package
