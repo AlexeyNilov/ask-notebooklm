@@ -1,2 +1,49 @@
 # ask-notebooklm
-Minimalistic Python MCP for talking with NotebookLM
+
+Read-only stdio MCP server for asking questions against a configured
+Google NotebookLM notebook from Codex.
+
+## Scope
+
+The first release is intentionally small:
+
+* run locally as a stdio MCP server
+* capture and reuse a local NotebookLM browser session
+* ask questions against one configured NotebookLM notebook
+* avoid all NotebookLM write operations
+
+The server must not create notebooks, upload sources, edit sources, delete data,
+or generate NotebookLM artifacts.
+
+## Configuration
+
+Create a local `.env` file:
+
+```text
+NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID=<your notebook id>
+```
+
+`.env` is local-only and must not be committed.
+
+## Development
+
+Create a virtual environment with Python 3.10 or newer, then install the package
+in editable mode:
+
+```powershell
+pip install -e ".[dev]"
+```
+
+Run tests:
+
+```powershell
+python -m pytest
+```
+
+Run the console entry point:
+
+```powershell
+ask-notebooklm
+```
+
+The console entry point is scaffolded but does not start the MCP server yet.
