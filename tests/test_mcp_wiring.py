@@ -57,7 +57,9 @@ async def test_ask_tool_calls_ask_service_with_question():
 
 @pytest.mark.anyio
 async def test_ask_tool_returns_reauthentication_message_for_expired_session():
-    ask_service = FakeAskService(AuthRequiredError("NotebookLM session expired. Run the login tool."))
+    ask_service = FakeAskService(
+        AuthRequiredError("NotebookLM session expired. Run the login tool.")
+    )
     server = build_server(
         login_service=FakeLoginService(LoginResult(LoginStatus.REUSED, Path("state.json"))),
         ask_service=ask_service,
@@ -70,7 +72,9 @@ async def test_ask_tool_returns_reauthentication_message_for_expired_session():
 
 @pytest.mark.anyio
 async def test_ask_tool_returns_configuration_message_for_missing_notebook_id():
-    ask_service = FakeAskService(ConfigError("NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID must be set in .env."))
+    ask_service = FakeAskService(
+        ConfigError("NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID must be set in .env.")
+    )
     server = build_server(
         login_service=FakeLoginService(LoginResult(LoginStatus.REUSED, Path("state.json"))),
         ask_service=ask_service,

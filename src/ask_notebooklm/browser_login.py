@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from playwright.sync_api import BrowserContext, Page, sync_playwright
-
 
 NOTEBOOKLM_URL = "https://notebooklm.google.com/"
 GOOGLE_AUTH_COOKIE_NAMES = {"__Secure-1PSID", "__Secure-3PSID", "SID", "HSID", "SSID"}
@@ -32,12 +31,14 @@ class PlaywrightBrowserSessionCapture:
             return capture_storage_state(context, self.login_url, self.timeout_seconds)
 
 
-def capture_storage_state(context: BrowserContext, login_url: str, timeout_seconds: int) -> dict[str, Any]:
+def capture_storage_state(
+    context: BrowserContext, login_url: str, timeout_seconds: int
+) -> dict[str, Any]:
     try:
         page = context.new_page()
         page.goto(login_url)
         wait_for_google_auth_cookie(context, page, timeout_seconds)
-        return context.storage_state()
+        return cast(dict[str, Any], context.storage_state())
     finally:
         context.close()
 
@@ -45,7 +46,8 @@ def capture_storage_state(context: BrowserContext, login_url: str, timeout_secon
 def wait_for_google_auth_cookie(context: BrowserContext, page: Page, timeout_seconds: int) -> None:
     deadline = time.monotonic() + timeout_seconds
     while time.monotonic() < deadline:
-        if has_google_auth_cookie(context.cookies()):
+        cookies = cast(list[dict[str, Any]], context.cookies())
+        if has_google_auth_cookie(cookies):
             return
         page.wait_for_timeout(1_000)
     raise TimeoutError("Timed out waiting for NotebookLM browser login.")

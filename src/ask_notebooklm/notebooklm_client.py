@@ -4,11 +4,10 @@ import json
 import re
 import uuid
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote, urlencode
 
 import httpx
-
 
 QUERY_URL = (
     "https://notebooklm.google.com/_/LabsTailwindUi/data/google.internal.labs.tailwind."
@@ -190,7 +189,9 @@ def extract_tokens(html: str) -> tuple[str, str]:
     csrf_token = extract_global_value(html, "SNlM0e")
     session_id = extract_global_value(html, "FdrFJe")
     if not csrf_token or not session_id:
-        raise AuthRequiredError("NotebookLM authentication tokens were not found. Run the login tool.")
+        raise AuthRequiredError(
+            "NotebookLM authentication tokens were not found. Run the login tool."
+        )
     return csrf_token, session_id
 
 
@@ -245,8 +246,9 @@ def parse_answer_chunk(json_text: str) -> tuple[str | None, str | None]:
 def parse_response_item(item: object) -> tuple[str | None, str | None]:
     if not is_response_item(item):
         return None, None
+    response_item = cast(list[Any], item)
     try:
-        inner = json.loads(item[2])
+        inner = json.loads(response_item[2])
     except json.JSONDecodeError:
         return None, None
     first = inner[0] if isinstance(inner, list) and inner else None
@@ -257,7 +259,12 @@ def parse_response_item(item: object) -> tuple[str | None, str | None]:
 
 
 def is_response_item(item: object) -> bool:
-    return isinstance(item, list) and len(item) > 2 and item[0] == "wrb.fr" and isinstance(item[2], str)
+    return (
+        isinstance(item, list)
+        and len(item) > 2
+        and item[0] == "wrb.fr"
+        and isinstance(item[2], str)
+    )
 
 
 def extract_conversation_id(first: list[Any]) -> str | None:

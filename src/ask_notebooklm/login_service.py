@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 from ask_notebooklm.session_store import SessionState, SessionStore, is_expired, is_storage_state
 
@@ -49,5 +49,5 @@ class LoginService:
 def validate_captured_storage_state(storage_state: object, now: float) -> None:
     if not is_storage_state(storage_state):
         raise LoginError("Captured NotebookLM session storage is invalid.")
-    if is_expired(storage_state, now):
+    if is_expired(cast(dict[str, Any], storage_state), now):
         raise LoginError("Captured NotebookLM session storage is expired.")

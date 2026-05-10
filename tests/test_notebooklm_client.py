@@ -26,7 +26,9 @@ def storage_state() -> dict:
 
 
 def streamed_answer(answer: str = "NotebookLM answer") -> str:
-    inner = json.dumps([[answer, None, ["server-conversation-id", 1], None, [None, None, None, [], 1]]])
+    inner = json.dumps(
+        [[answer, None, ["server-conversation-id", 1], None, [None, None, None, [], 1]]]
+    )
     outer = json.dumps([["wrb.fr", None, inner]])
     return ")]}'\n123\n" + outer
 

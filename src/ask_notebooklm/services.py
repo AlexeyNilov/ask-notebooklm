@@ -40,7 +40,9 @@ class NotebookClientProtocol(Protocol):
 
 
 ConfigLoader = Callable[[], AppConfig]
-ClientFactory = Callable[[dict[str, Any]], NotebookClientProtocol | Awaitable[NotebookClientProtocol]]
+ClientFactory = Callable[
+    [dict[str, Any]], NotebookClientProtocol | Awaitable[NotebookClientProtocol]
+]
 
 
 class AskService:
@@ -59,7 +61,9 @@ class AskService:
         session = self.session_store.load()
         storage_state = require_valid_storage_state(session)
         if self.client_factory is None:
-            return await ask_with_default_client(storage_state, config.read_only_notebook_id, question)
+            return await ask_with_default_client(
+                storage_state, config.read_only_notebook_id, question
+            )
         client = await resolve_client(self.client_factory(storage_state))
         result = await client.ask(config.read_only_notebook_id, question)
         return str(result.answer)
@@ -79,7 +83,9 @@ async def resolve_client(
     return client_or_awaitable
 
 
-async def ask_with_default_client(storage_state: dict[str, Any], notebook_id: str, question: str) -> str:
+async def ask_with_default_client(
+    storage_state: dict[str, Any], notebook_id: str, question: str
+) -> str:
     async with httpx.AsyncClient(timeout=30.0) as http_client:
         client = await NotebookLMAskClient.from_storage_state(http_client, storage_state)
         result = await client.ask(notebook_id, question)

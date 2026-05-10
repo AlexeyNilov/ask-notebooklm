@@ -38,7 +38,9 @@ async def test_ask_service_loads_config_session_and_calls_notebook_client():
 
     service = AskService(
         config_loader=lambda: AppConfig(read_only_notebook_id="notebook-123"),
-        session_store=FakeSessionStore(LoadedSession(SessionState.VALID, Path("state.json"), storage_state)),
+        session_store=FakeSessionStore(
+            LoadedSession(SessionState.VALID, Path("state.json"), storage_state)
+        ),
         client_factory=lambda state: notebook_client,
     )
 

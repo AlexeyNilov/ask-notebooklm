@@ -6,7 +6,6 @@ from pathlib import Path
 
 from dotenv import dotenv_values
 
-
 CONFIG_NOTEBOOK_ID = "NOTEBOOKLM_READ_ONLY_NOTEBOOK_ID"
 
 

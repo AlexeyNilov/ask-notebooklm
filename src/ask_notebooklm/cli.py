@@ -2,20 +2,31 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Callable, Sequence
-from typing import Protocol
+from typing import Literal, Protocol
 
 from ask_notebooklm.server import build_server
 
 
 class RunnableServer(Protocol):
-    def run(self, transport: str = "stdio") -> None:
+    def run(
+        self,
+        transport: Literal["stdio", "sse", "streamable-http"] = "stdio",
+        mount_path: str | None = None,
+    ) -> None:
         raise NotImplementedError
 
 
 ServerFactory = Callable[[], RunnableServer]
 
 
-def main(argv: Sequence[str] | None = None, server_factory: ServerFactory = build_server) -> int:
+def default_server_factory() -> RunnableServer:
+    return build_server()
+
+
+def main(
+    argv: Sequence[str] | None = None,
+    server_factory: ServerFactory = default_server_factory,
+) -> int:
     args = list(argv if argv is not None else sys.argv[1:])
     if wants_help(args):
         sys.stdout.write(help_text())

@@ -69,6 +69,13 @@ Run tests:
 python -m pytest
 ```
 
+Build a local wheel for release verification:
+
+```powershell
+$env:PIP_CACHE_DIR=".pip-cache"
+python -m pip wheel . --no-deps --no-build-isolation --wheel-dir .pkg-check
+```
+
 Run the console entry point:
 
 ```powershell

@@ -45,5 +45,13 @@ Your job is to help the user think better, and to write production ready code. O
 - Use logging, not print (except in CLI-only scripts).
 - Avoid new dependencies unless justified.
 
+## Tooling
+- Use Ruff for formatting and linting:
+  - `.\.venv\Scripts\ruff.exe format --check .`
+  - `.\.venv\Scripts\ruff.exe check .`
+- Use mypy for type checking:
+  - `.\.venv\Scripts\mypy.exe`
+- Run these checks before considering implementation work complete.
+
 ## Documentation
 - Any significant change affecting architecture, data flow, or public interfaces must be reflected in `README.md`.

@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 from ask_notebooklm.session_store import SessionState, SessionStore
 

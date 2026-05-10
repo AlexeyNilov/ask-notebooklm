@@ -1,11 +1,9 @@
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
 from mcp import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
-
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT / ".venv" / "Scripts" / "python.exe"
