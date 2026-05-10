@@ -77,3 +77,14 @@ ask-notebooklm
 
 The command starts the stdio MCP server. Do not wrap it with scripts that write
 to stdout, because stdout is reserved for MCP protocol messages.
+
+## Codex MCP configuration
+
+Configure Codex to run the installed console command from this project
+environment:
+
+```toml
+[mcp_servers.ask_notebooklm]
+command = "C:\\an\\git\\ask-notebooklm\\.venv\\Scripts\\ask-notebooklm.exe"
+cwd = "C:\\an\\git\\ask-notebooklm"
+```
