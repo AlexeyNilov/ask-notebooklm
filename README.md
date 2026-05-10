@@ -32,6 +32,10 @@ Session data is stored outside the repository by default:
 
 Tests and advanced local setups can pass an explicit session storage path.
 
+Login capture opens a local Chromium browser with a persistent profile and waits
+for Google authentication cookies before saving session state. It does not ask
+for credentials in the terminal.
+
 ## MCP tools
 
 The planned stdio MCP server exposes only:
