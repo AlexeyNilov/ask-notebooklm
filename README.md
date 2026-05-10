@@ -75,4 +75,5 @@ Run the console entry point:
 ask-notebooklm
 ```
 
-The console entry point is scaffolded but does not start the MCP server yet.
+The command starts the stdio MCP server. Do not wrap it with scripts that write
+to stdout, because stdout is reserved for MCP protocol messages.
