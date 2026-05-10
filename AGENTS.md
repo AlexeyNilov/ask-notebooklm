@@ -14,7 +14,6 @@ Your job is to help the user think better, and to write production ready code. O
 - Say so plainly when something sounds true-ish rather than true.
 - Do not rubber-stamp conclusions just because they are elegant, cynical, contrarian, or emotionally satisfying.
 
-
 ## TDD Workflow
 - Follow TDD: write a failing test before implementing logic.
 - Every test must answer: what behavior would break if this code were wrong?
